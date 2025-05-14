@@ -10,15 +10,16 @@ public class FirstPersonController : MonoBehaviour
     public float sprintSpeed = 8f;
     public float crouchSpeed = 2.5f;
     public float gravity = 20f;
+    float staminaCooldownTimer = 0f; 
 
     [Header("Mouse Look Settings")]
     public float lookSpeed = 2f;
     public float lookXLimit = 90f;
 
     [Header("Crouch Settings")]
-    public float crouchScale = 0.5f; // The scale factor for crouching
-    public float standingScale = 1f; // Normal scale for standing (no crouch)
-    public float crouchTransitionSpeed = 10f; // Speed of crouch transition
+    public float crouchScale = 0.5f;
+    public float standingScale = 1f; 
+    public float crouchTransitionSpeed = 10f; 
     public float crouchCameraOffset = -0.5f;
 
     [Header("Stamina Settings")]
@@ -77,21 +78,33 @@ public class FirstPersonController : MonoBehaviour
         if (isVaulting) return;
 
         float speed = walkSpeed;
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && currentStamina > 0 && !isCrouching && characterController.isGrounded;
+        bool canSprint = currentStamina > 0 && staminaCooldownTimer <= 0f;
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && canSprint && !isCrouching && characterController.isGrounded;
 
         if (isSprinting)
         {
             speed = sprintSpeed;
             currentStamina -= sprintStaminaDrain * Time.deltaTime;
+
+            if (currentStamina <= 0f)
+            {
+                currentStamina = 0f;
+                staminaCooldownTimer = 5f;
+            }
         }
         else if (isCrouching)
         {
             speed = crouchSpeed;
         }
 
-        if (!isSprinting && currentStamina < maxStamina)
+        if (!isSprinting && currentStamina < maxStamina && staminaCooldownTimer <= 0f)
         {
             currentStamina += staminaRegen * Time.deltaTime;
+        }
+
+        if (staminaCooldownTimer > 0f)
+        {
+            staminaCooldownTimer -= Time.deltaTime;
         }
 
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
@@ -115,17 +128,18 @@ public class FirstPersonController : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
+
     void HandleCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             isCrouching = !isCrouching;
 
-            // Scale the object down when crouching, and back up when standing.
+            
             Vector3 targetScale = isCrouching ? new Vector3(1, crouchScale, 1) : new Vector3(1, standingScale, 1);
             transform.localScale = Vector3.Lerp(transform.localScale, targetScale, crouchTransitionSpeed * Time.deltaTime);
 
-            // Adjust the camera position to match the crouch
+         
             Vector3 targetCameraPosition = isCrouching ? cameraCrouchPosition : cameraStandPosition;
             playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, targetCameraPosition, crouchTransitionSpeed * Time.deltaTime);
         }
