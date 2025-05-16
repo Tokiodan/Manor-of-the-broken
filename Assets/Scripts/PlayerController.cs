@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Camera playerCamera;
+    public Image staminaBar;
 
-    // Update is called once per frame
-    void Update()
+    [HideInInspector] public CharacterController characterController;
+    [HideInInspector] public StaminaSystem staminaSystem;
+
+    void Awake()
     {
-        
+        characterController = GetComponent<CharacterController>();
+        staminaSystem = GetComponent<StaminaSystem>();
     }
 }
