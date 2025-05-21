@@ -14,9 +14,14 @@ GameObject:
   - component: {fileID: 6647899814355477723}
   - component: {fileID: 5307091499637531580}
   - component: {fileID: 450430391183839714}
-  - component: {fileID: 1966644710602805799}
+  - component: {fileID: 5682951285157014705}
+  - component: {fileID: 2604761618945274941}
+  - component: {fileID: 7818634741820956762}
+  - component: {fileID: 7290509477791623994}
+  - component: {fileID: 2446214016305696827}
+  - component: {fileID: 7198716678547466064}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 3997739486591676898}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.46, z: 0}
+  m_LocalPosition: {x: -2.133748, y: 2.67, z: -3.6045318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,7 +169,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1966644710602805799
+--- !u!114 &5682951285157014705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,24 +178,87 @@ MonoBehaviour:
   m_GameObject: {fileID: 3997739486591676898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 293e7e466fcc7b543a4181e10c81c2b3, type: 3}
+  m_Script: {fileID: 11500000, guid: a3025186bffc8da40bdd441e8bf23b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crouchScale: 0.5
+  standingScale: 1
+  crouchSpeed: 10
+  crouchOffset: -0.5
+--- !u!114 &2604761618945274941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997739486591676898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd8f09472b6df642b6c5da6b3ff29c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
   sprintSpeed: 8
   crouchSpeed: 2.5
-  gravity: 100
+  gravity: 20
+--- !u!114 &7818634741820956762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997739486591676898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20883c6a87518041a6b0e3e0e27b814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   lookSpeed: 2
   lookXLimit: 90
-  crouchScale: 0.5
-  standingScale: 1
-  crouchTransitionSpeed: 10
-  crouchCameraOffset: -0.5
+--- !u!114 &7290509477791623994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997739486591676898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39fe25154a12e143b483996b39220ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 3143603176606368963}
+  staminaBar: {fileID: 0}
+  characterController: {fileID: 0}
+  staminaSystem: {fileID: 0}
+--- !u!114 &2446214016305696827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997739486591676898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188d309161f3e394aa8f963fd65f8646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxStamina: 100
   sprintStaminaDrain: 20
   vaultStaminaCost: 30
-  staminaRegen: 10
-  staminaBar: {fileID: 0}
+  staminaRegen: 5
+--- !u!114 &7198716678547466064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997739486591676898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656b8a479383a9041976e394a8631e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   vaultDistance: 1.5
   vaultHeight: 1
   vaultDuration: 0.5

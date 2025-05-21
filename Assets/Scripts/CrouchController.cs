@@ -4,7 +4,7 @@ public class CrouchController : MonoBehaviour
 {
     public float crouchScale = 0.5f;
     public float standingScale = 1f;
-    public float crouchSpeed = 10f;
+    public float crouchSpeed = 10f; // Crouchspeed in deze script = Hoe snel je transition is van staand --> Crouchend
     public float crouchOffset = -0.5f;
 
     public bool IsCrouching { get; private set; }
