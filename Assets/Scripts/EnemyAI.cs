@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     public float attackRange = 2f;         // Reduced for melee
     public float fireRate = 1f;
     private float nextFireTime = 0f;
-    public float EnemyDamage;
+    public float EnemyDamage = 10f;
 
     private enum AIState { Patrolling, Chasing, Attacking }
     private AIState currentState;
@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player").transform;
         currentState = AIState.Patrolling;
 
         if (patrolPoints.Length > 0)
@@ -142,12 +143,12 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (distanceToPlayer <= attackRange)
         {
-            // PlayerHP playerHP = player.GetComponent<PlayerHP>();
-            // if (playerHP != null)
-            // {
-            //     playerHP.TakeDamage(EnemyDamage);
-            //     Debug.Log("Player hit by melee attack! Damage applied.");
-            // }
+            PlayerHP playerHP = player.GetComponent<PlayerHP>();
+            if (playerHP != null)
+            {
+                playerHP.TakeDamage(EnemyDamage);
+                Debug.Log("Player hit by melee attack! Damage applied.");
+            }
 
             Debug.Log("Player would be damaged here if PlayerHP was active.");
         }
