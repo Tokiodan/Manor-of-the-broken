@@ -1256,8 +1256,8 @@ Transform:
   m_GameObject: {fileID: 1669849265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.11, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.11, y: 1.3, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1308,7 +1308,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &1702069115
 GameObject:
@@ -1441,6 +1441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7290509477791623994, guid: aea8981e33bcd734bb29b892b9139351,
+        type: 3}
+      propertyPath: staminaBar
+      value: 
+      objectReference: {fileID: 1142843350}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
