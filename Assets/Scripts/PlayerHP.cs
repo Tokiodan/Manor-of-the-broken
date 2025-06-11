@@ -6,7 +6,7 @@ public class PlayerHP : MonoBehaviour
 {
     [Header("Health Settings")]
     public float maxHealth = 100f;
-    [SerializeField]private float currentHealth;
+    [SerializeField] private float currentHealth;
 
     public bool isDead { get; private set; } = false;
 
@@ -34,5 +34,29 @@ public class PlayerHP : MonoBehaviour
     {
         isDead = true;
         Debug.Log("Player died!");
+        // Add death logic (animation, respawn, etc.)
     }
+
+    public void Regenerate(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        Debug.Log($"Player healed for {amount}. Current health: {currentHealth}");
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("MedKit"))
+        {
+            Medkit medkit = collision.gameObject.GetComponent<Medkit>();
+            if (medkit != null)
+            {
+                Regenerate(medkit.GetRecoverAmount());
+                Destroy(collision.gameObject);
+            }
+        }
+    }
+
 }

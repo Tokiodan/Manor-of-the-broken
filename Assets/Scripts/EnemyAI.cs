@@ -135,7 +135,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // Melee attack instead of shooting
     void PerformMeleeAttack()
     {
         Debug.Log("Enemy performing melee attack!");
@@ -149,8 +148,10 @@ public class EnemyAI : MonoBehaviour
                 playerHP.TakeDamage(EnemyDamage);
                 Debug.Log("Player hit by melee attack! Damage applied.");
             }
-
-            Debug.Log("Player would be damaged here if PlayerHP was active.");
+            else
+            {
+                Debug.Log("Player would be damaged here if PlayerHP was active.");
+            }
         }
     }
 }
