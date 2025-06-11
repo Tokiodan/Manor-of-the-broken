@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -10,9 +10,26 @@ public class PlayerHP : MonoBehaviour
 
     public bool isDead { get; private set; } = false;
 
+    [Header("UI Feedback")]
+    public Image damagePanel;
+    public Image healPanel;
+    public float fadeDuration = 1f;
+
     void Start()
     {
         currentHealth = maxHealth;
+
+        if (damagePanel != null)
+        {
+            damagePanel.gameObject.SetActive(false);
+            SetImageAlpha(damagePanel, 1f);
+        }
+
+        if (healPanel != null)
+        {
+            healPanel.gameObject.SetActive(false);
+            SetImageAlpha(healPanel, 1f);
+        }
     }
 
     public void TakeDamage(float amount)
@@ -22,6 +39,9 @@ public class PlayerHP : MonoBehaviour
 
         currentHealth -= amount;
         Debug.Log($"Player took {amount} damage. Current health: {currentHealth}");
+
+        if (damagePanel != null)
+            StartCoroutine(FadePanel(damagePanel));
 
         if (currentHealth <= 0)
         {
@@ -39,11 +59,17 @@ public class PlayerHP : MonoBehaviour
 
     public void Regenerate(float amount)
     {
+        if (isDead)
+            return;
+
         currentHealth += amount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
 
         Debug.Log($"Player healed for {amount}. Current health: {currentHealth}");
+
+        if (healPanel != null)
+            StartCoroutine(FadePanel(healPanel));
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -51,7 +77,7 @@ public class PlayerHP : MonoBehaviour
         Medkit medkit = hit.gameObject.GetComponent<Medkit>();
         if (medkit != null)
         {
-            if(currentHealth < maxHealth)
+            if (currentHealth < maxHealth)
             {
                 Regenerate(medkit.GetRecoverAmount());
                 Destroy(hit.gameObject);
@@ -59,5 +85,28 @@ public class PlayerHP : MonoBehaviour
         }
     }
 
+    IEnumerator FadePanel(Image panel)
+    {
+        panel.gameObject.SetActive(true);
+        SetImageAlpha(panel, 1f);
 
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            SetImageAlpha(panel, alpha);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        SetImageAlpha(panel, 0f);
+        panel.gameObject.SetActive(false);
+    }
+
+    void SetImageAlpha(Image img, float alpha)
+    {
+        Color c = img.color;
+        c.a = alpha;
+        img.color = c;
+    }
 }
