@@ -15,6 +15,9 @@ public class PlayerHP : MonoBehaviour
     public Image healPanel;
     public float fadeDuration = 1f;
 
+    [Header("Persistent Damage Overlay")]
+    public Image damagedLookPanel;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -30,6 +33,16 @@ public class PlayerHP : MonoBehaviour
             healPanel.gameObject.SetActive(false);
             SetImageAlpha(healPanel, 1f);
         }
+
+        if (damagedLookPanel != null)
+        {
+            SetImageAlpha(damagedLookPanel, 0f);
+        }
+    }
+
+    void Update()
+    {
+        UpdateDamagedLook();
     }
 
     public void TakeDamage(float amount)
@@ -108,5 +121,15 @@ public class PlayerHP : MonoBehaviour
         Color c = img.color;
         c.a = alpha;
         img.color = c;
+    }
+
+    void UpdateDamagedLook()
+    {
+        if (damagedLookPanel != null && !isDead)
+        {
+            float healthPercent = currentHealth / maxHealth;
+            float damageAlpha = 1f - healthPercent; // Lower health = higher alpha
+            SetImageAlpha(damagedLookPanel, damageAlpha);
+        }
     }
 }
