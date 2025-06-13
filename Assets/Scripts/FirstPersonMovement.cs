@@ -8,14 +8,13 @@ public class FirstPersonMovement : MonoBehaviour
     public float gravity = 20f;
 
     private PlayerController player;
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
 
     void Start() { player = GetComponent<PlayerController>(); }
 
     void Update()
     {
         if (GetComponent<VaultController>().IsVaulting) return;
-
         float speed = walkSpeed;
         bool canSprint = player.staminaSystem.CanSprint();
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && canSprint && !GetComponent<CrouchController>().IsCrouching && player.characterController.isGrounded;
@@ -42,4 +41,10 @@ public class FirstPersonMovement : MonoBehaviour
         moveDirection.y = player.characterController.isGrounded ? -1f : moveY - gravity * Time.deltaTime;
         player.characterController.Move(moveDirection * Time.deltaTime);
     }
+
+    public void ResetMovement()
+    {
+        moveDirection = Vector3.zero;
+    }
+
 }

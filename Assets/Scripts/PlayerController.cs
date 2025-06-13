@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
@@ -13,5 +15,30 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         staminaSystem = GetComponent<StaminaSystem>();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Death")
+        {
+            Destroy(gameObject);
+        }
+        else if (scene.name == "Respawn")
+        {
+            if (GameManager.Instance != null && GameManager.Instance.respawnPoint != null)
+            {
+                transform.position = GameManager.Instance.respawnPoint.position;
+            }
+        }
     }
 }
