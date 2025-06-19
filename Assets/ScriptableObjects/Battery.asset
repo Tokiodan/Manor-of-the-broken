@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2ab86ed9a455b489ef9e732b95c7e0, type: 3}
+  m_Name: Battery
+  m_EditorClassIdentifier: 
+  itemName: Battery
+  icon: {fileID: 0}
+  description: Item used for the flashlight or any other light source.
+  itemType: 0
+  prefab: {fileID: 6652350905366626436, guid: b94295375a9a0804d9a2b7335207659c, type: 3}
