@@ -424,7 +424,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 134908961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7ad7cce15e7ac4f9200901c93ddb97, type: 3}
+  m_Script: {fileID: 11500000, guid: 613f0e60acd490b41aca7dbae36a0383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteryLife: 100
@@ -1519,7 +1519,7 @@ GameObject:
   - component: {fileID: 1907192472}
   - component: {fileID: 1907192471}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: FlashlightCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,6 +18,10 @@ public class EnemyAI : MonoBehaviour
     private float nextFireTime = 0f;
     public float EnemyDamage = 10f;
 
+    [Header("Enemy Stats")]
+    public float maxHP = 100f;
+    private float currentHP;
+
     private enum AIState { Patrolling, Chasing, Attacking }
     private AIState currentState;
 
@@ -130,12 +134,12 @@ public class EnemyAI : MonoBehaviour
 
         if (Time.time >= nextFireTime)
         {
-            //PerformMeleeAttack();
+            PerformMeleeAttack();
             nextFireTime = Time.time + fireRate;
         }
     }
 
-    /*void PerformMeleeAttack()
+    void PerformMeleeAttack()
     {
         Debug.Log("Enemy performing melee attack!");
 
@@ -153,5 +157,22 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Player would be damaged here if PlayerHP was active.");
             }
         }
-    }*/
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHP -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP left: {currentHP}");
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log($"{gameObject.name} died.");
+        Destroy(gameObject);
+    }
 }

@@ -85,7 +85,7 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, range))
         {
-            EnemyTest enemy = hit.transform.GetComponent<EnemyTest>();
+            EnemyAI enemy = hit.transform.GetComponent<EnemyAI>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);

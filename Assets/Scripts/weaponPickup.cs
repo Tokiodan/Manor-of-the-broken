@@ -10,7 +10,7 @@ public class WeaponPickup : MonoBehaviour
 
     void Update()
     {
-        if (inRange && Input.GetKeyDown(KeyCode.F))
+        if (inRange && Input.GetKeyDown(KeyCode.Return))
         {
             WeaponHolder holder = player.GetComponent<WeaponHolder>();
             if (holder != null)
