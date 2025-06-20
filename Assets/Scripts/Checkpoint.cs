@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Checkpoint : MonoBehaviour
 {
-    public GameObject checkpointUI; // assign this in the Inspector
+    public GameObject checkpointUI;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +12,7 @@ public class Checkpoint : MonoBehaviour
             GameManager.Instance.SetCheckpoint(transform);
             other.GetComponent<PlayerSaveManager>()?.Save();
 
-            // Show "Checkpoint Reached!" UI
+            // shows text
             if (checkpointUI != null)
             {
                 checkpointUI.SetActive(true);

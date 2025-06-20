@@ -5,8 +5,7 @@ public class PlayerSaveManager : SaveableObject
     public int points = 0;
 
     void Update()
-    {
-        // Add points with P key
+    { // add points for testing
         if (Input.GetKeyDown(KeyCode.P))
         {
             points += 10;
@@ -16,6 +15,7 @@ public class PlayerSaveManager : SaveableObject
 
     public override void Save()
     {
+        // saves players position and points to playerprefs
         Vector3 pos = transform.position;
         PlayerData data = new PlayerData
         {
@@ -33,6 +33,7 @@ public class PlayerSaveManager : SaveableObject
 
     public override void Load()
     {
+        // load players position and points from playerprefs
         if (!PlayerPrefs.HasKey("PlayerData")) return;
 
         string json = PlayerPrefs.GetString("PlayerData");

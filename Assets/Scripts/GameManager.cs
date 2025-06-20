@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // manages player respawning and checkpoint saving/loading
     public static GameManager Instance;
     public GameObject playerPrefab;
     public Transform respawnPoint;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void SetCheckpoint(Transform checkpoint)
     {
+        // set a new checkpoint and save its position
         respawnPoint = checkpoint;
 
         PlayerPrefs.SetFloat("RespawnX", checkpoint.position.x);
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadCheckpoint()
     {
+        // load saved checkpoint position from playerprefs
         if (PlayerPrefs.HasKey("RespawnX"))
         {
             Vector3 savedPos = new Vector3(
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.GetFloat("RespawnZ")
             );
 
+            // create a temporary transform at the saved position
             GameObject temp = new GameObject("LoadedCheckpoint");
             temp.transform.position = savedPos;
             respawnPoint = temp.transform;
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = respawnPoint ? respawnPoint.position : Vector3.zero;
         GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
 
+        // restore player data like position and points
         player.GetComponent<PlayerSaveManager>()?.Load();
     }
 }

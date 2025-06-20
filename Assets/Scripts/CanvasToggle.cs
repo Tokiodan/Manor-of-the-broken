@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CanvasToggle : MonoBehaviour
 {
-    public Canvas targetCanvas;         // The canvas to toggle
-    public GameObject playerObject;     // Assign your player prefab here
-    public Camera uiCamera;             // The dedicated UI camera to enable/disable
+    public Canvas targetCanvas; // toggles the canvas
+    public GameObject playerObject;
+    public Camera uiCamera;
     public KeyCode toggleKey = KeyCode.E;
 
     private bool isMenuOpen = false;
@@ -15,10 +15,10 @@ public class CanvasToggle : MonoBehaviour
             targetCanvas.enabled = false;
 
         if (playerObject == null)
-            playerObject = GameObject.FindWithTag("Player"); // fallback
+            playerObject = GameObject.FindWithTag("Player"); // fallback if not assigned in inspector
 
         if (uiCamera != null)
-            uiCamera.enabled = false;  // Disable UI camera by default
+            uiCamera.enabled = false;  
     }
 
     void Update()
@@ -34,12 +34,25 @@ public class CanvasToggle : MonoBehaviour
         isMenuOpen = !isMenuOpen;
 
         if (targetCanvas != null)
+        {
             targetCanvas.enabled = isMenuOpen;
 
+            if (targetCanvas.renderMode == RenderMode.ScreenSpaceCamera)
+                targetCanvas.worldCamera = uiCamera;
+        }
+
         if (playerObject != null)
-            playerObject.SetActive(!isMenuOpen); // disable player GameObject
+            playerObject.SetActive(!isMenuOpen);
 
         if (uiCamera != null)
-            uiCamera.enabled = isMenuOpen;  // enable UI camera only when menu is open
+        {
+            uiCamera.gameObject.SetActive(isMenuOpen);
+            uiCamera.tag = isMenuOpen ? "MainCamera" : "Untagged"; 
+        }
+
+        Cursor.lockState = isMenuOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isMenuOpen;
     }
+
+
 }
