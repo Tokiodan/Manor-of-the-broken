@@ -1,5 +1,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System.Linq;
 
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
@@ -15,6 +16,19 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public Items itemData; // Reference to Item (updated from ItemData)
     public Tooltip tooltip;
+
+    void Start()
+    {
+        if (tooltip == null)
+        {
+            tooltip = Resources.FindObjectsOfTypeAll<Tooltip>().FirstOrDefault();
+            if (tooltip == null)
+            {
+                Debug.LogWarning("Tooltip component not found in scene.");
+            }
+        }
+
+    }
 
     private void Awake()
     {

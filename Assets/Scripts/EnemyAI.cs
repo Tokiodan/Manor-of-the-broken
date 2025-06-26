@@ -27,6 +27,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        currentHP = maxHP;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
         currentState = AIState.Patrolling;
